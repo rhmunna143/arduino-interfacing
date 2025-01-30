@@ -26,5 +26,5 @@ void loop()
         Serial.println("Safe. LED OFF");
     }
 
-    delay(500);
+    delay(1000);
 }
