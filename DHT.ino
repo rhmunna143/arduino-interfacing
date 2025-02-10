@@ -1,26 +1,23 @@
-const int trigPin = 9;
-const int echoPin = 10;
+#include <DHT.h>
+#define DHTPIN 2
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);
 
 void setup()
 {
     Serial.begin(9600);
-    pinMode(trigPin, OUTPUT);
-    pinMode(echoPin, INPUT);
+    dht.begin();
 }
 
 void loop()
 {
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
+    float temp = dht.readTemperature();
+    float hum = dht.readHumidity();
 
-    long duration = pulseIn(echoPin, HIGH);
-    int distance = duration * 0.034 / 2;
-
-    Serial.print("Distance: ");
-    Serial.print(distance);
-    Serial.println(" cm");
-    delay(500);
+    Serial.print("Temperature: ");
+    Serial.print(temp);
+    Serial.print(" °C Humidity: ");
+    Serial.print(hum);
+    Serial.println(" %");
+    delay(2000);
 }
